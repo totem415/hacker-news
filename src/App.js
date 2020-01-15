@@ -22,6 +22,14 @@ const divStyle = {
   textAlign: "left",
 };
 
+// function isSearched(searchTerm) {
+//   return function (item) {
+//     return item.title.toLowerCase().includes(searchTerm.toLowerCase());
+//     // return item.title.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1;
+// } }
+const isSearched = searchTerm => item => 
+  item.title.toLowerCase().includes(searchTerm.toLowerCase());
+
 class App extends Component {
   constructor(props) {
       super(props);
@@ -29,9 +37,6 @@ class App extends Component {
         list,
         searchTerm: '',
       };
-      // this.onDismiss = this.onDismiss.bind(this);
-
-
       this.onDismiss = this.onDismiss.bind(this);
       this.onSearchChange = this.onSearchChange.bind(this);
   }
@@ -56,9 +61,12 @@ class App extends Component {
         onChange={this.onSearchChange}
       />
       </form>
-
+      {/* {this.state.list.filter().map(item =>
+        //... 
+      )} */}
         <ul>
-      {this.state.list.map(item => {
+        {this.state.list.filter(isSearched(this.state.searchTerm)).map(item => {
+      {/* {this.state.list.map(item => { */}
           return (
             <div key={item.objectID}> <li><span>
                 <a href={item.url}>{item.title} </a>
